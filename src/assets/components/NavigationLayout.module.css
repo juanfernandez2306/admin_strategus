@@ -1,0 +1,104 @@
+.container{
+  display: grid;
+  grid-template-rows: 60px 1fr 60px;
+  grid-template-areas:  "header"
+                        "main"
+                        "footer";
+  width: 100dvw;
+  height: 100dvh;
+}
+
+.header{
+  grid-area: header;
+  background-color: var(--firts-color);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  gap: 0;
+}
+
+.footer{
+  grid-area: footer;
+  background-color: var(--firts-color);
+}
+
+.lista{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  list-style-type: none;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.itemActivo {
+  background-color: var(--second-color);
+}
+
+.itemsLista{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.enlace{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  color: var(--second-color);
+  text-decoration: none;
+}
+
+.enlaceActivo {
+  color: var(--firts-color);
+}
+
+.svg{
+  fill: currentColor;
+  transition: fill 0.2s ease;
+}
+
+
+.main{
+   grid-area: main;
+   background-color: var(--second-color);
+   width: 100%;
+   height: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.btnCerrarSesion {
+  font-family: var(--font-header); /* Usa la fuente del header */
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--second-color); /* Color gris claro para contrastar con el fondo verde */
+  background-color: rgba(255, 255, 255, 0.1); /* Fondo blanco sutilmente transparente */
+  border: 1px solid rgba(223, 223, 222, 0.3); /* Borde suave usando tu --second-color */
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Efecto al pasar el mouse por encima */
+.btnCerrarSesion:hover {
+  background-color: var(--second-color); /* Cambia al fondo gris claro */
+  color: var(--firts-color); /* El texto cambia al verde oscuro del header */
+  border-color: var(--second-color);
+}
+
+/* Efecto al hacer click */
+.btnCerrarSesion:active {
+  transform: scale(0.96); /* Un pequeño efecto de hundimiento */
+}

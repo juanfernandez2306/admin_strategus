@@ -1,0 +1,143 @@
+.tituloSeccion {
+    font-family: var(--font-header);
+    font-size: 1.2rem;
+    font-weight: 900;
+    text-align: center;
+    margin: 0 0 0.8rem 0;
+    color: var(--firts-color);
+    letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   CONTENEDOR CON SCROLL INTEGRADO (Aislado para evitar roturas en Mobile)
+   ========================================================================== */
+.contenedorUsuarios {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    box-sizing: border-box;
+    
+    /* Control estricto del viewport vertical móvil */
+    max-height: calc(100dvh - 180px); 
+    overflow-y: auto;
+    padding-right: 4px;
+    -webkit-overflow-scrolling: touch; /* Deslizamiento orgánico en iOS */
+}
+
+/* Scrollbar sutil */
+.contenedorUsuarios::-webkit-scrollbar {
+    width: 5px;
+}
+.contenedorUsuarios::-webkit-scrollbar-thumb {
+    background-color: var(--border-neutral-color);
+    border-radius: 4px;
+}
+
+/* ==========================================================================
+   TARJETA DE USUARIO
+   ========================================================================== */
+.tarjetaUsuario {
+    background-color: #ffffff;
+    border: 1.5px solid var(--border-neutral-color);
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    box-shadow: var(--shadow-subtle);
+}
+
+.encabezadoUsuario {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.5rem;
+    border-bottom: 1px dashed var(--border-neutral-color);
+    padding-bottom: 0.6rem;
+}
+
+.infoPrincipal {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+}
+
+.nombreCompleto {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin: 0;
+    color: #222222;
+}
+
+.emailTexto {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: #666666;
+}
+
+.tagRol {
+    font-family: var(--font-header);
+    background-color: var(--fourth-color); /* Tu beige base */
+    color: var(--firts-color);           /* Texto verde oscuro */
+    font-size: 0.75rem;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* ==========================================================================
+   FILA DE ACCIONES (Estatus y Modal Trigger)
+   ========================================================================== */
+.filaAcciones {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.badgeEstatus {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+/* Estados dinámicos usando tu paleta */
+.badgeEstatus.activo {
+    background-color: rgba(56, 102, 65, 0.15); /* Verde translúcido */
+    color: var(--success-color);
+}
+
+.badgeEstatus.inactivo {
+    background-color: rgba(211, 47, 47, 0.12); /* Rojo translúcido */
+    color: var(--error-color);
+}
+
+.botonEditar {
+    font-family: var(--font-header);
+    background-color: transparent;
+    border: 1.5px solid var(--firts-color);
+    color: var(--firts-color);
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.botonEditar:active {
+    background-color: var(--firts-color);
+    color: var(--second-color);
+}
+
+.sinDatos {
+    font-family: var(--font-body);
+    text-align: center;
+    color: #666666;
+    font-size: 1rem;
+    padding: 1rem;
+}

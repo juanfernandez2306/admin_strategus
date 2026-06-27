@@ -1,0 +1,50 @@
+.camposContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem; /* Separación entre los dos campos */
+}
+
+.controlForm {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  gap: 0.4rem;
+}
+
+.label {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #4a4a4a; /* Gris oscuro para buena legibilidad */
+}
+
+/* ... Tus otros estilos se mantienen ... */
+
+.inputDate {
+  font-family: var(--font-body);
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  border: 1.5px solid var(--border-neutral-color); /* Centralizado */
+  border-radius: 8px;
+  background-color: var(--fourth-color);
+  color: var(--color-negro);
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Efecto cuando el usuario hace clic o se posiciona en el input */
+.inputDate:focus {
+  border-color: var(--firts-color); /* Tu color verde institucional */
+  box-shadow: 0 0 0 3px rgba(56, 102, 65, 0.15); /* Resplandor sutil verde */
+}
+
+/* Opcional: Estilo básico para navegadores móviles */
+.inputDate::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  filter: invert(34%) sepia(13%) saturate(1472%) hue-rotate(84deg) brightness(95%) contrast(87%);
+  /* El filtro anterior aproxima el icono del calendario al tono de tu --firts-color (#386641) */
+}
