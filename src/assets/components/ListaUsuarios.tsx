@@ -17,15 +17,7 @@ interface ListaUsuariosProps {
   onEditarUsuario?: (usuario: Usuario) => void;
 }
 
-// Datos semilla (Mock Data) para pruebas visuales en móvil
-const usuariosSemilla: Usuario[] = [
-  { id: 4, nombre: "Juan", apellido: "Pérez", email: "juan.perez@mail.com", status: "activo", rol: "Administrador" },
-  { id: 3, nombre: "María", apellido: "Gómez", email: "maria.g@mail.com", status: "activo", rol: "Supervisor" },
-  { id: 2, nombre: "Carlos", apellido: "Rodríguez", email: "carlos.r@mail.com", status: "inactivo", rol: "Monitorista" },
-  { id: 1, nombre: "Ana", apellido: "Martínez", email: "ana.m@mail.com", status: "activo", rol: "Monitorista" },
-];
-
-const ListaUsuarios = ({ usuariosData = usuariosSemilla, onEditarUsuario }: ListaUsuariosProps) => {
+const ListaUsuarios = ({ usuariosData, onEditarUsuario }: ListaUsuariosProps) => {
   
   const handleEditarClick = (usuario: Usuario) => {
     if (onEditarUsuario) {
@@ -39,10 +31,10 @@ const ListaUsuarios = ({ usuariosData = usuariosSemilla, onEditarUsuario }: List
     <div className={styleLocal.contenedorUsuarios}>
       <h3 className={styleLocal.tituloSeccion}>ADMINISTRACIÓN DE USUARIOS</h3>
       
-      {usuariosData.length === 0 ? (
+      {usuariosData?.length === 0 ? (
         <p className={styleLocal.sinDatos}>Acceso restringido.</p>
       ) : (
-        usuariosData.map((user) => (
+        usuariosData?.map((user) => (
           <div key={user.id} className={styleLocal.tarjetaUsuario}>
             
             {/* Encabezado de la Tarjeta (Nombre completo + Rol) */}
