@@ -16,7 +16,7 @@ interface Usuario {
 }
 
 export const SeccionUsuarios = () => {
-  const { usuariosData, loading, error } = useUsuarios();
+  const { usuariosData, loading, error, recargar } = useUsuarios();
 
   const [usuarioSeleccionado, setUsuarioSeleccionado] = useState<Usuario | null>(null);
   const [modalAbierto, setModalAbierto] = useState(false);
@@ -24,11 +24,6 @@ export const SeccionUsuarios = () => {
   const handleAbrirEdicion = (usuario: Usuario) => {
     setUsuarioSeleccionado(usuario);
     setModalAbierto(true);
-  };
-
-  const handleRefrescarDatos = () => {
-    console.log("Refrescar query SQL getAll para traer los datos nuevos...");
-    // Aquí ejecutas la llamada a tu API / Hook para actualizar la lista de atrás
   };
 
   if (loading) {
@@ -52,7 +47,7 @@ export const SeccionUsuarios = () => {
         isOpen={modalAbierto}
         usuario={usuarioSeleccionado}
         onClose={() => setModalAbierto(false)}
-        onUsuarioActualizado={handleRefrescarDatos}
+        onUsuarioActualizado={recargar}
       />
 
     </section>

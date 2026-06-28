@@ -2,13 +2,15 @@
 import { useState, useEffect } from "react";
 import FormBaseLayout from "./FormBaseLayout";
 import style from "./ModalEditarUsuario.module.css";
+import { useAuthStore } from "./login/hooks/useAuthStore"; // 🌟 Importamos tu store para el Token
+import { URL_BACKEND } from "../maps/config/info"; // Ajusta la ruta de config si cambia
 
 interface Usuario {
   id: number;
   nombre: string;
   apellido: string;
   email: string;
-  status: string;
+  status: string | number;
   rol: string;
 }
 
@@ -16,24 +18,47 @@ interface ModalEditarUsuarioProps {
   usuario: Usuario | null;
   isOpen: boolean;
   onClose: () => void;
-  onUsuarioActualizado: () => void; // Para refrescar la lista principal al terminar
+  onUsuarioActualizado: () => void;
 }
+
+// Helper para convertir el string que viene del backend ("operador", "administrador") a su ID (role_id) numérico
+const obtenerRoleIdPorNombre = (nombreRol: string): string => {
+  const rolLimpio = nombreRol.trim().toLowerCase();
+  switch (rolLimpio) {
+    case "administrador": return "1";
+    case "topografía": 
+    case "topografia": return "2";
+    case "operador": return "3";
+    case "supervisor": return "4";
+    default: return "3"; // Por defecto operador si no coincide
+  }
+};
+
+// Helper para asegurar que el status que viene de la API ("activo" o 1) se asigne correctamente a "1" o "0"
+const normalizarStatusAStringId = (status: string | number): string => {
+  const val = String(status).trim().toLowerCase();
+  return (val === "activo" || val === "1") ? "1" : "0";
+};
 
 export const ModalEditarUsuario = ({ usuario, isOpen, onClose, onUsuarioActualizado }: ModalEditarUsuarioProps) => {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState("activo");
-  const [rol, setRol] = useState("");
+  const [status, setStatus] = useState("1");
+  const [roleId, setRoleId] = useState("3");
+  const [fid, setFid] = useState<number | null>(null);
 
-  // Efecto para precargar los datos del usuario seleccionado cuando se abre el modal
+  const token = useAuthStore((state) => state.token); // 🌟 Extraemos tu token de sesión
+
+  // Efecto para precargar los datos mapeados cuando se selecciona el usuario
   useEffect(() => {
     if (usuario) {
+      setFid(usuario.id);
       setNombre(usuario.nombre);
       setApellido(usuario.apellido);
       setEmail(usuario.email);
-      setStatus(usuario.status);
-      setRol(usuario.rol);
+      setStatus(normalizarStatusAStringId(usuario.status));
+      setRoleId(obtenerRoleIdPorNombre(usuario.rol)); // Transformamos "operador" -> "3"
     }
   }, [usuario, isOpen]);
 
@@ -44,19 +69,19 @@ export const ModalEditarUsuario = ({ usuario, isOpen, onClose, onUsuarioActualiz
       throw new Error("Todos los campos obligatorios deben estar completos.");
     }
 
-    // Petición fetch simulada a tu backend REST API en Slim
-    const respuesta = await fetch(`http://localhost/api-gepad/usuarios/update/${usuario.id}`, {
+    // Petición fetch a tu endpoint REST API en Slim
+    const respuesta = await fetch(`${URL_BACKEND}/usuarios/${fid}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        // "Authorization": `Bearer ${token}` <- Si manejas JWT
+        "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify({
-        nombre,
-        apellido,
-        email,
-        status,
-        rol
+        nombre: nombre.trim(),
+        apellido: apellido.trim(),
+        email: email.trim(),
+        role_id: parseInt(roleId, 10),
+        status: parseInt(status, 10)
       }),
     });
 
@@ -65,7 +90,7 @@ export const ModalEditarUsuario = ({ usuario, isOpen, onClose, onUsuarioActualiz
       throw new Error(errorData.message || "No se pudo actualizar el usuario.");
     }
 
-    // Notificar al componente padre para refrescar los datos
+    // Refrescar la lista principal de usuarios en tiempo real
     onUsuarioActualizado();
     
     return "El usuario ha sido actualizado correctamente.";
@@ -75,7 +100,6 @@ export const ModalEditarUsuario = ({ usuario, isOpen, onClose, onUsuarioActualiz
     <div className={style.modalOverlay}>
       <div className={style.contenedorModal}>
         
-        {/* Botón X superior para cerrar de forma inmediata */}
         <button type="button" className={style.botonCerrarX} onClick={onClose}>
           &times;
         </button>
@@ -84,11 +108,10 @@ export const ModalEditarUsuario = ({ usuario, isOpen, onClose, onUsuarioActualiz
           titulo="Actualizar Usuario"
           buttonText="Guardar Cambios"
           onExecute={handleUpdate}
-          onSuccess={onClose} // Cierra el modal cuando el usuario presiona el botón "Cerrar" del feedback exitoso
+          onSuccess={onClose}
         >
           <div className={style.camposContainer}>
             
-            {/* Campo: Nombre */}
             <div className={style.controlForm}>
               <label htmlFor="editNombre" className={style.label}>Nombre</label>
               <input
@@ -101,7 +124,6 @@ export const ModalEditarUsuario = ({ usuario, isOpen, onClose, onUsuarioActualiz
               />
             </div>
 
-            {/* Campo: Apellido */}
             <div className={style.controlForm}>
               <label htmlFor="editApellido" className={style.label}>Apellido</label>
               <input
@@ -114,7 +136,6 @@ export const ModalEditarUsuario = ({ usuario, isOpen, onClose, onUsuarioActualiz
               />
             </div>
 
-            {/* Campo: Email */}
             <div className={style.controlForm}>
               <label htmlFor="editEmail" className={style.label}>Correo Electrónico</label>
               <input
@@ -136,12 +157,13 @@ export const ModalEditarUsuario = ({ usuario, isOpen, onClose, onUsuarioActualiz
                 <select
                   id="editRol"
                   className={style.selectForm}
-                  value={rol}
-                  onChange={(e) => setRol(e.target.value)}
+                  value={roleId}
+                  onChange={(e) => setRoleId(e.target.value)}
                 >
-                  <option value="Administrador">Administrador</option>
-                  <option value="Supervisor">Supervisor</option>
-                  <option value="Monitorista">Monitorista</option>
+                  <option value="1">Administrador</option>
+                  <option value="2">Topografía</option>
+                  <option value="3">Operador</option>
+                  <option value="4">Supervisor</option>
                 </select>
               </div>
 
@@ -154,8 +176,8 @@ export const ModalEditarUsuario = ({ usuario, isOpen, onClose, onUsuarioActualiz
                   value={status}
                   onChange={(e) => setStatus(e.target.value)}
                 >
-                  <option value="activo">ACTIVO</option>
-                  <option value="inactivo">INACTIVO</option>
+                  <option value="1">ACTIVO</option>
+                  <option value="0">INACTIVO</option>
                 </select>
               </div>
 
@@ -166,4 +188,4 @@ export const ModalEditarUsuario = ({ usuario, isOpen, onClose, onUsuarioActualiz
       </div>
     </div>
   );
-}
+};
