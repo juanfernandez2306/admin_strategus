@@ -11,6 +11,7 @@ import { IconClipBoard } from '../svg/IconClipBoard';
 import FiltroFechasForm from './FiltroFechasForm';
 import ResumenLotesList from './ResumenLotesList';
 import { SeccionUsuarios } from './SeccionUsuarios';
+import { MapLibreGL } from '../maps/MapLibreGL';
 
 import imgLogo from '../img/icono_blanco_sigal.png';
 
@@ -34,7 +35,7 @@ export default function NavigationLayout(){
         {vistaActiva === 'resumen' && <ResumenLotesList />}
         {vistaActiva === 'excel' && <FiltroFechasForm />}
         {vistaActiva === 'usuarios' && <SeccionUsuarios />}
-        {vistaActiva === 'mapa' && <section>parte del mapa</section>}
+        {vistaActiva === 'mapa' && <MapLibreGL />}
       </main>
       <footer className={style.footer}>
         <ul className={style.lista}>
