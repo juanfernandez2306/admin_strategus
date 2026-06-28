@@ -2,9 +2,15 @@ import { useState } from "react";
 import FormBaseLayout from "./FormBaseLayout";
 import style from "./FiltroFechasForm.module.css";
 
+import { useDescargarExcel } from "../hooks/useDescargarExcel";
+
 export default function FiltroFechasForm() {
   const [fechaInicio, setFechaInicio] = useState("");
   const [fechaFin, setFechaFin] = useState("");
+
+  const { descargarExcel } = useDescargarExcel();
+
+  const hoy = new Date().toISOString().split('T')[0];
 
   // Esta función envuelve la lógica para cumplir con el contrato de FormBaseLayout
   const handleExecute = async (): Promise<string> => {
@@ -16,7 +22,7 @@ export default function FiltroFechasForm() {
       throw new Error("La fecha de fin no puede ser menor a la fecha de inicio.");
     }
 
-    return "hola";
+    return await descargarExcel(fechaInicio, fechaFin);
 
   };
 
@@ -39,6 +45,8 @@ export default function FiltroFechasForm() {
             id="fechaInicio"
             className={style.inputDate}
             value={fechaInicio}
+            min='2026-01-01'
+            max={hoy}
             onChange={(e) => setFechaInicio(e.target.value)}
             required
           />
@@ -54,6 +62,8 @@ export default function FiltroFechasForm() {
             id="fechaFin"
             className={style.inputDate}
             value={fechaFin}
+            min='2026-01-01'
+            max={hoy}
             onChange={(e) => setFechaFin(e.target.value)}
             required
           />
