@@ -15,6 +15,8 @@ import { MapLibreGL } from '../maps/MapLibreGL';
 
 import imgLogo from '../img/icono_blanco_sigal.png';
 
+import { useAuthStore } from './login/hooks/useAuthStore'; 
+
 export default function NavigationLayout(){
 
   const [vistaActiva, setVistaActiva] = useState<Vista>('resumen');
@@ -23,13 +25,37 @@ export default function NavigationLayout(){
     e.preventDefault();
     setVistaActiva(vista);
   };
+
+  const tokenStore = useAuthStore((state) => state.token);
+  const logoutStore = useAuthStore((state) => state.logout);
+
+  const handleLogout = async () => {
+    try {
+      await fetch("http://localhost/api-gepad/usuarios/logout", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${tokenStore}`,
+          "Content-Type": "application/json",
+        },
+      });
+    } catch (error) {
+      console.error("Error al revocar sesión en servidor:", error);
+    } finally {
+      // Independientemente de si el servidor responde o no, limpiamos 
+      // el Store localmente. Al hacerlo, la vista cambiará al Login de inmediato.
+      logoutStore();
+    }
+  };
   
   return (
     
     <div className={style.container}>
       <header className={style.header}>
         <img src={imgLogo} width={200} alt="" />
-        <button className={style.btnCerrarSesion}>Cerrar sesion</button>
+        <button 
+          onClick={handleLogout}
+          className={style.btnCerrarSesion}
+          >Cerrar sesion</button>
       </header>
       <main className={style.main}>
         {vistaActiva === 'resumen' && <ResumenLotesList />}
