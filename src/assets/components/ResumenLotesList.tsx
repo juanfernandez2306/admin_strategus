@@ -10,8 +10,6 @@ const ResumenLotesList = () => {
 
   const { lotesData, loading, error } = useResumenLotes();
 
-  console.log(lotesData)
-
   if (loading) return <p className={styleLocal.sinDatos}>Cargando resumen de lotes...</p>;
   if (error) return <p className={styleLocal.errorText}>Error: {error}</p>;
 
