@@ -3,26 +3,18 @@ import styleLocal from "./ResumenLotesList.module.css";
 
 import IconFumigadora from "../svg/IconFumigadora";
 
-// Definimos la estructura exacta que arroja tu sentencia SQL
-interface LoteResumen {
-  lote: string;
-  palmas_marcadas: number;
-  palmas_revisadas: number;
-}
+import { useResumenLotes } from "../hooks/useResumenLotes";
 
-interface ResumenLotesListProps {
-  // Ponemos los datos semilla por defecto en caso de que no se envíen props
-  lotesData?: LoteResumen[];
-}
 
-// Datos semilla (Mock Data) para pruebas visuales
-const datosSemilla: LoteResumen[] = [
-  { lote: "Lote A-1", palmas_marcadas: 15, palmas_revisadas: 12 },
-  { lote: "Lote A-2", palmas_marcadas: 8, palmas_revisadas: 8 },
-  
-];
+const ResumenLotesList = () => {
 
-const ResumenLotesList = ({ lotesData = datosSemilla }: ResumenLotesListProps) => {
+  const { lotesData, loading, error } = useResumenLotes();
+
+  console.log(lotesData)
+
+  if (loading) return <p className={styleLocal.sinDatos}>Cargando resumen de lotes...</p>;
+  if (error) return <p className={styleLocal.errorText}>Error: {error}</p>;
+
   return (
     <div className={styleLocal.contenedorLotes}>
         <IconFumigadora width={200} height={100} className={styleLocal.svg} />
