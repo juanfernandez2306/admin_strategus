@@ -2,6 +2,8 @@
 
 import type { InfoFincaEstructura } from "./types";
 
+export const URL_BACKEND = 'http://localhost/api-gepad';
+
 const getTilesURL = () => {
     const origin = typeof window !== 'undefined' ? window.location.origin : '';
     return `${origin}/tiles/{z}/{x}/{y}.pbf`;
