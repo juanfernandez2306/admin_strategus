@@ -53,8 +53,6 @@ export const obtenerDatosApiGeoJson = async (token: string): Promise<RespuestaGe
             };
         }
 
-        console.log(datos);
-
         // Mapeo nativo a objetos Feature<Point> respetando la especificación GeoJSON
         const puntos: Feature<Point>[] = datos.map(punto => ({
             type: "Feature",
