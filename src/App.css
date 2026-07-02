@@ -29,4 +29,8 @@ body{
   height: 100dvh;
   width: 100dvw;
   font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--border-neutral-color);
 }

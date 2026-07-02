@@ -6,6 +6,7 @@
                         "footer";
   width: 100dvw;
   height: 100dvh;
+  max-width: 600px;
 }
 
 .header{
