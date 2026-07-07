@@ -68,6 +68,8 @@ const RegisterLayout = () => {
               onChange={(e) => setNombre(e.target.value)}
               placeholder="Ingresa tu nombre"
               required
+              pattern="[a-zA-ZñÑ]{3,}"
+              title="Solo se permiten letras"
             />
           </div>
 
@@ -80,6 +82,8 @@ const RegisterLayout = () => {
               onChange={(e) => setApellido(e.target.value)}
               placeholder="Ingresa tu apellido"
               required
+              pattern="[a-zA-ZñÑ]{3,}"
+              title="Solo se permiten letras"
             />
           </div>
 
@@ -103,8 +107,13 @@ const RegisterLayout = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Mínimo 6 caracteres"
+              pattern="[a-zA-Z0-9]{6,}" 
+              title="Solo se permiten letras y números, y debe tener al menos 6 caracteres."
               required
             />
+            <em className={style.notas}>
+              Solo se permiten letras y números, y debe tener al menos 6 caracteres.
+            </em>
           </div>
 
           <div className={style.groupInput}>
@@ -116,6 +125,8 @@ const RegisterLayout = () => {
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="Repite tu contraseña"
               required
+              pattern="[a-zA-Z0-9]{6,}" 
+              title="Solo se permiten letras y números, y debe tener al menos 6 caracteres."
             />
           </div>
 
