@@ -13,7 +13,7 @@ import type {
     OpcionesEtiquetaPunto, 
     OpcionesEtiquetaLinea, 
     OpcionesEtiquetaPoligono
- } from '../../../types';
+ } from '../../maps/config/types';
 
 /**
  * Fábrica (Factory) encargada de generar objetos de configuración de capas de puntos (círculos)
@@ -232,7 +232,7 @@ export function crearEtiquetasPoligonos({
 }
 
 
-import type { OpcionesEtiquetaPuntoPersonalizada } from '../../../types';
+import type { OpcionesEtiquetaPuntoPersonalizada } from '../../maps/config/types';
 
 export function crearEtiquetasPuntosPersonalizadas({
     id,
