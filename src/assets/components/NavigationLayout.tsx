@@ -17,6 +17,8 @@ import imgLogo from '../img/icono_blanco_sigal.png';
 
 import { useAuthStore } from './login/hooks/useAuthStore'; 
 
+import { URL_BACKEND } from '../maps/config/info';
+
 export default function NavigationLayout(){
 
   const [vistaActiva, setVistaActiva] = useState<Vista>('resumen');
@@ -31,7 +33,7 @@ export default function NavigationLayout(){
 
   const handleLogout = async () => {
     try {
-      await fetch("http://localhost/api-gepad/usuarios/logout", {
+      await fetch(`${URL_BACKEND}/usuarios/logout`, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${tokenStore}`,
