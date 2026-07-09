@@ -187,5 +187,9 @@ input:focus + .notas {
 
 /* Estilo para el icono en sí (si usas react-icons) */
 .icon {
-  font-size: 1.25rem;
+  fill: #a0aec0;
+}
+
+.icon:hover{
+  fill: var(--firts-color);
 }
