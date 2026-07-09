@@ -126,3 +126,66 @@
 input:focus + .notas {
     color: #334155; /* Gris más oscuro (Slate 700) */
 }
+
+
+/* LoginLayout.module.css (Añade estas reglas al final) */
+
+/* Contenedor para el input y el icono */
+.passwordWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* Estilo específico para el input con icono */
+.inputWithIcon {
+  width: 100%;
+  padding: 14px 16px;
+  /* Deja espacio a la derecha para el icono */
+  padding-right: 3rem !important; 
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-family: var(--font-body);
+  color: var(--color-negro, #222222);
+  background-color: #fafafa;
+  box-sizing: border-box;
+  transition: all 0.25s ease;
+}
+
+/* Efectos Focus para .inputWithIcon, reutilizando la lógica existente */
+.inputWithIcon:focus {
+  outline: none;
+  border-color: var(--firts-color);
+  background-color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(56, 102, 65, 0.12);
+}
+
+/* Estilo para el botón del icono */
+.iconButton {
+  position: absolute;
+  right: 12px; /* Posicionamiento a la derecha */
+  top: 50%;
+  transform: translateY(-50%); /* Centrado vertical */
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* El color inicial puede ser un gris suave */
+  color: #a0aec0; 
+  transition: color 0.2s ease;
+}
+
+/* Cambia el color del icono al pasar el ratón */
+.iconButton:hover {
+  color: var(--firts-color);
+}
+
+/* Estilo para el icono en sí (si usas react-icons) */
+.icon {
+  font-size: 1.25rem;
+}

@@ -10,6 +10,8 @@ import imgLogo from '../../img/logo_gepal_centrado.png';
 
 import style from "./LoginLayout.module.css";
 
+import PasswordInput from "./PasswordInput";
+
 
 const LoginLayout = () => {
   const [email, setEmail] = useState("");
@@ -52,17 +54,16 @@ const LoginLayout = () => {
             />
           </div>
 
-          <div className={style.groupInput}>
-            <label htmlFor="clave">Contraseña</label>
-            <input
-              id="clave"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="***********"
-              required
-            />
-          </div>
+          
+          <PasswordInput
+            id="clave"
+            label="Contraseña"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="***********"
+            required
+          />
+          
           <p className={style.pieEnlace}>
           ¿No tienes una cuenta? 
           <a href="#" onClick={(e) => { e.preventDefault(); irARegistro(); }} className={style.enlaceAccion}>
