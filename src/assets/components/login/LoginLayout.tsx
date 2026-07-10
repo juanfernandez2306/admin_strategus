@@ -62,12 +62,20 @@ const LoginLayout = () => {
             required
           />
           
-          <p className={style.pieEnlace}>
-          ¿No tienes una cuenta? 
-          <a href="#" onClick={(e) => { e.preventDefault(); irARegistro(); }} className={style.enlaceAccion}>
-            Regístrate aquí
-          </a>
-        </p>
+          <div className={style.contenedorEnlacesPie}>
+            <p className={style.pieEnlace}>
+              ¿No tienes cuenta? 
+              <a href="#" onClick={(e) => { e.preventDefault(); irARegistro(); }} className={style.enlaceAccion}>
+                Regístrate
+              </a>
+            </p>
+
+            <p className={style.pieEnlace}>
+              <a href="#" onClick={(e) => { e.preventDefault(); irARegistro(); }} className={style.enlaceAccion}>
+                ¿Olvidaste tu contraseña?
+              </a>
+            </p>
+          </div>
         </FormBaseLayout>
   );
 };
