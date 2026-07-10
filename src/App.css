@@ -32,5 +32,5 @@ body{
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--border-neutral-color);
+  background-color: var(--second-color);
 }

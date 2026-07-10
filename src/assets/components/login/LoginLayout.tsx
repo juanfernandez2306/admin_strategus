@@ -35,8 +35,6 @@ const LoginLayout = () => {
   };
 
   return (
-    <div className={style.container}>
-
       <FormBaseLayout
           buttonText="Ingresar al Sistema"
           onExecute={handleExecuteLogin}
@@ -71,9 +69,6 @@ const LoginLayout = () => {
           </a>
         </p>
         </FormBaseLayout>
-
-    </div>
-
   );
 };
 
