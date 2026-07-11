@@ -4,6 +4,7 @@ import NavigationLayout from "./assets/components/NavigationLayout";
 import { useAuthStore } from "./assets/components/login/hooks/useAuthStore";
 import { useAuthUiStore } from "./assets/components/login/hooks/useAuthUiStore";
 import RegisterLayout from "./assets/components/login/RegisterLayout";
+import ForgotPasswordLayout from "./assets/components/login/ForgotPasswordLayout";
 import './App.css';
 
 function App() {
@@ -18,7 +19,18 @@ function App() {
 
   return (
     <>
-      {vistaActual === 'login' ? <LoginLayout /> : <RegisterLayout />}
+      {(() => {
+        switch (vistaActual) {
+          case 'login':
+            return <LoginLayout />;
+          case 'register':
+            return <RegisterLayout />;
+          case 'ForgotPassword':
+            return <ForgotPasswordLayout />;
+          default:
+            return <LoginLayout />;
+        }
+      })()}
     </>
   );
 }
