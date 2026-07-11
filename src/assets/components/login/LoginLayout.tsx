@@ -12,14 +12,18 @@ import style from "./LoginLayout.module.css";
 import PasswordInput from "./PasswordInput";
 
 import { useFormValidators } from "./hooks/useFormValidators";
+import { validadoresLogin } from "./utils/validatorsForm";
 
 
 const LoginLayout = () => {
 
-  const { valores, errores, handleChange, validarFormulario } = useFormValidators({
-    email: "",
-    password: ""
-  });
+  const { valores, errores, handleChange, validarFormulario } = useFormValidators(
+    {
+      email: "",
+      password: ""
+    }
+    , validadoresLogin
+  );
 
   const { autenticar } = useLogin();
 
