@@ -33,11 +33,13 @@ const validationInputString = ({
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-const passwordRegex = /[^A-Za-z0-9]/;
+const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z0-9]).{6,}$/;
 
-const msgErrorPattern = "La contraseña debe incluir al menos un carácter especial (ej. @, #, $, !, %)."
+const msgErrorPattern = "La contraseña debe tener al menos 6 caracteres e incluir letras, números y un carácter especial (ej. @, #, $, !).";
 
-const nameRegex = /^[A-Za-z]+$/;
+const nameRegex = /^[A-Za-z]{3,}$/;
+
+const msgErrorText = "Por favor, introduce solo letras y tener al menos 3 caracteres."
 
 
 export const validadoresLogin = {
@@ -67,7 +69,7 @@ export const validadoresRegister = {
       value_field: valor,
       name_field: "El nombre",
       regex_field: nameRegex,
-      message_field_regex: "Por favor, introduce solo letras"
+      message_field_regex: msgErrorText
     });
   },
   apellido: (valor: string): string => {
@@ -76,7 +78,7 @@ export const validadoresRegister = {
       value_field: valor,
       name_field: "El apellido",
       regex_field: nameRegex,
-      message_field_regex: "Por favor, introduce solo letras"
+      message_field_regex: msgErrorText
     });
 
   },
