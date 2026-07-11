@@ -122,18 +122,25 @@
 
 
 /* Estilo para el mensaje de ayuda/validación */
-.notas {
+.notas, .notasError {
     display: block;
     margin-top: 0.35rem;
     font-size: 0.85rem;
-    color: #64748b; /* Un gris neutro suave (Slate 500) */
-    font-style: normal; /* Le quitamos la cursiva por defecto de <em> para que sea más legible */
+    font-style: normal;
     line-height: 1.4;
     transition: color 0.2s ease;
 }
 
+.notas{
+  color: #64748b;
+}
+
+.notasError{
+  color: var(--error-color);
+}
+
 /* Opcional: Si el input tiene el foco, el texto se vuelve un poco más oscuro para guiar la vista */
-input:focus + .notas {
+input:focus {
     color: #334155; /* Gris más oscuro (Slate 700) */
 }
 
@@ -202,4 +209,8 @@ input:focus + .notas {
 
 .icon:hover{
   fill: var(--firts-color);
+}
+
+.img{
+  width: 60%;
 }

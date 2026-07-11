@@ -12,6 +12,7 @@ interface PasswordInputProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
   required?: boolean;
+  error?: string;
 }
 
 const PasswordInput: React.FC<PasswordInputProps> = ({
@@ -21,12 +22,14 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
   onChange,
   placeholder = "***********",
   required = false,
+  error
 }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   return (
     <div className={style.groupInput}>
       <label htmlFor={id}>{label}</label>
+
       <div className={style.passwordWrapper}>
         <input
           id={id}
@@ -36,7 +39,6 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
           placeholder={placeholder}
           required={required}
           className={style.inputWithIcon}
-          pattern="[a-zA-Z0-9]{6,}"
         />
         <button
           type="button"
@@ -61,6 +63,13 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
           )}
         </button>
       </div>
+
+      {error && (
+        <span className={style.notasError}>
+          {error}
+        </span>
+      )}
+
     </div>
   );
 };

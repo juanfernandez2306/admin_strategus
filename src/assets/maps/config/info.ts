@@ -2,7 +2,9 @@
 
 import type { InfoFincaEstructura } from "./types";
 
-export const URL_BACKEND = 'https://api.juanfgeo.com';
+// export const URL_BACKEND = 'https://api.juanfgeo.com';
+
+export const URL_BACKEND = 'http://localhost/api-gepad/';
 
 const getTilesURL = () => {
     const origin = typeof window !== 'undefined' ? window.location.origin : '';
