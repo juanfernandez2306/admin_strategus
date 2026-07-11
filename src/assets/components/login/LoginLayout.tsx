@@ -31,6 +31,8 @@ const LoginLayout = () => {
 
   const irARegistro = useAuthUiStore((state) => state.irARegistro);
 
+  const irAforgotPassword = useAuthUiStore((state) => state.irAForgotPassword);
+
   const handleExecuteLogin = async (): Promise<string> => {
 
     if (!validarFormulario()) {
@@ -95,7 +97,7 @@ const LoginLayout = () => {
             </p>
 
             <p className={style.pieEnlace}>
-              <a href="#" onClick={(e) => { e.preventDefault(); irARegistro(); }} className={style.enlaceAccion}>
+              <a href="#" onClick={(e) => { e.preventDefault(); irAforgotPassword(); }} className={style.enlaceAccion}>
                 ¿Olvidaste tu contraseña?
               </a>
             </p>
