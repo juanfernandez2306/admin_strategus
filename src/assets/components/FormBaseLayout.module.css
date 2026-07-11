@@ -3,8 +3,11 @@
    ========================================================================== */
 .formContainer {
   width: 100%;
+  box-sizing: border-box;
+  max-width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
   font-family: var(--font-body);
 }
 
@@ -13,12 +16,17 @@ form.form {
   box-shadow: var(--shadow-subtle);
   border-radius: 10px;
   width: 90%;
+  max-width: 450px;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
   align-items: center;
   padding: 1.5rem;
   box-sizing: border-box;
+
+  max-height: 90dvh;  
+  overflow-y: auto;
+  padding-right: 1rem;
 }
 
 /* ==========================================================================

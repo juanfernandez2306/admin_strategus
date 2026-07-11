@@ -3,7 +3,7 @@ import { useState } from "react";
 import FormBaseLayout from "../FormBaseLayout";
 import style from "./LoginLayout.module.css";
 
-import imgLogo from '../../img/logo_gepal_centrado.png';
+import imgLogo from '../../img/logo_sigepad.png';
 
 import { useAuthUiStore } from "./hooks/useAuthUiStore";
 
@@ -58,7 +58,7 @@ const RegisterLayout = () => {
       buttonText="Confirmar Registro"
       onExecute={handleExecuteRegister}
     >
-      <img src={imgLogo} alt="" />
+      <img src={imgLogo} alt="" className={style.img} />
       <div className={style.groupInput}>
         <label htmlFor="reg-nombre">Nombre</label>
         <input
