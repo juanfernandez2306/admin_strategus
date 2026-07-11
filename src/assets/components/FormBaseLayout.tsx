@@ -9,6 +9,7 @@ interface FormBaseProps {
   onExecute: () => Promise<string>; 
   onSuccess?: () => void;
   disabled?: boolean;
+  redirectOnSubmit?: boolean;
 }
 
 const FormBaseLayout = ({ 
@@ -17,7 +18,9 @@ const FormBaseLayout = ({
     children,
     onExecute, 
     onSuccess,
-    disabled = false }: FormBaseProps) => {
+    disabled = false,
+    redirectOnSubmit = false
+  }: FormBaseProps) => {
 
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [mensaje, setMensaje] = useState<string>("");
@@ -31,7 +34,9 @@ const FormBaseLayout = ({
     try {
       const mensajeExito = await onExecute();
       setMensaje(mensajeExito);
-      if (onSuccess) onSuccess();
+
+      if (onSuccess && !redirectOnSubmit) onSuccess();
+      
     } catch (error) {
       const msg = error instanceof Error ? error.message : String(error);
       setMensaje(`Error: ${msg}`);
@@ -41,7 +46,14 @@ const FormBaseLayout = ({
     }
   };
 
-  const closeModal = () => setMensaje("");
+  const closeModal = () => {
+    setMensaje("");
+
+    if (!isError && redirectOnSubmit && onSuccess) {
+      onSuccess();
+    }
+
+  };
 
   return (
     <div className={style.formContainer}>

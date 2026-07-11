@@ -48,7 +48,6 @@ const ForgotPasswordLayout = () => {
     <FormBaseLayout
       buttonText="Enviar enlace"
       onExecute={handleExecuteRecovery}
-      onSuccess={() => setTimeout(() => irALogin(), 4000)} // Da tiempo a leer el modal de éxito antes de redirigir
     >
       {/* LOGO */}
       <img src={imgLogo} alt="logo SIGEPAD" className={style.img} />
