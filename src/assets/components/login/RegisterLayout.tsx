@@ -58,7 +58,7 @@ const RegisterLayout = () => {
       buttonText="Confirmar Registro"
       onExecute={handleExecuteRegister}
     >
-        <img src={imgLogo} alt="" />
+      <img src={imgLogo} alt="" />
       <div className={style.groupInput}>
         <label htmlFor="reg-nombre">Nombre</label>
         <input
