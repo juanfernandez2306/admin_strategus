@@ -22,6 +22,7 @@ export const validadores = {
   },
   
   password: (valor: string): string => {
+    
     if (!valor) return "La contraseña es obligatoria.";
 
     if (/\s/.test(valor)) {
