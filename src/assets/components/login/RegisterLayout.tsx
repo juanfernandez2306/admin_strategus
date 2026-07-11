@@ -1,134 +1,141 @@
 // RegisterLayout.tsx
-import { useState } from "react";
 import FormBaseLayout from "../FormBaseLayout";
 import style from "./LoginLayout.module.css";
-
 import imgLogo from '../../img/logo_sigepad.png';
 
 import { useAuthUiStore } from "./hooks/useAuthUiStore";
-
 import { URL_BACKEND } from "../../maps/config/info";
-
+import { useFormValidators } from "./hooks/useFormValidators";
+import { validadoresRegister } from "./utils/validatorsForm";
+import PasswordInput from "./PasswordInput";
 
 const RegisterLayout = () => {
-  const [nombre, setNombre] = useState("");
-  const [apellido, setApellido] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  
+  // Hook genérico conectado a las estrategias de validación
+  const { valores, errores, handleChange, validarFormulario } = useFormValidators(
+    {
+      nombre: "",
+      apellido: "",
+      email: "",
+      password: "",
+      confirmPassword: ""
+    }, 
+    validadoresRegister
+  );
 
   const irALogin = useAuthUiStore((state) => state.irALogin);
 
   const handleExecuteRegister = async (): Promise<string> => {
-    // Validación de seguridad previa del lado del cliente
-    if (password !== confirmPassword) {
-      throw new Error("Las contraseñas ingresadas no coinciden.");
+    
+    if (!validarFormulario()) {
+      throw new Error("Por favor, corrige los errores antes de continuar.");
     }
 
-    // Aquí llamarías a tu servicio/hook de fetch hacia tu API Slim (ej. usuarios/register)
+    
     const respuesta = await fetch(`${URL_BACKEND}/usuarios/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ 
-        nombre: nombre, 
-        apellido: apellido, 
-        email: email, 
-        password: password,
-        password_confirm: confirmPassword
-     }),
+        nombre: valores.nombre, 
+        apellido: valores.apellido, 
+        email: valores.email, 
+        password: valores.password,
+        password_confirm: valores.confirmPassword
+      })
     });
 
-    const datos = await respuesta.json();
-
-    if (!respuesta.ok || !datos.success) {
-      throw new Error(datos.message || "Ocurrió un error al procesar el registro.");
+    if (!respuesta.ok) {
+      const errorData = await respuesta.json();
+      throw new Error(errorData.mensaje || "Error al registrar el usuario.");
     }
 
-    // Redirección o acción automática tras éxito
-    setTimeout(() => {
-      irALogin();
-    }, 1500);
-
-    return datos.message || "Usuario registrado exitosamente.";
+    return "Usuario registrado con éxito.";
   };
 
   return (
-    
     <FormBaseLayout
-      buttonText="Confirmar Registro"
+      buttonText="Registrarse"
       onExecute={handleExecuteRegister}
+      onSuccess={() => setTimeout(() => irALogin(), 1500)}
     >
-      <img src={imgLogo} alt="" className={style.img} />
+      <img src={imgLogo} alt="logo SIGEPAD" className={style.img} />
+
+      
       <div className={style.groupInput}>
         <label htmlFor="reg-nombre">Nombre</label>
         <input
           id="reg-nombre"
           type="text"
-          value={nombre}
-          onChange={(e) => setNombre(e.target.value)}
+          value={valores.nombre}
+          onChange={(e) => handleChange("nombre", e.target.value)}
           placeholder="Ingresa tu nombre"
+          className={errores.nombre ? style.inputError : ""}
           required
-          title="Solo se permiten letras"
         />
+        {errores.nombre && <span className={style.notasError}>{errores.nombre}</span>}
       </div>
 
+      
       <div className={style.groupInput}>
         <label htmlFor="reg-apellido">Apellido</label>
         <input
           id="reg-apellido"
           type="text"
-          value={apellido}
-          onChange={(e) => setApellido(e.target.value)}
+          value={valores.apellido}
+          onChange={(e) => handleChange("apellido", e.target.value)}
           placeholder="Ingresa tu apellido"
+          className={errores.apellido ? style.inputError : ""}
           required
-          title="Solo se permiten letras"
         />
+        {errores.apellido && <span className={style.notasError}>{errores.apellido}</span>}
       </div>
 
+      
       <div className={style.groupInput}>
         <label htmlFor="reg-email">Correo Electrónico</label>
         <input
           id="reg-email"
           type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={valores.email}
+          onChange={(e) => handleChange("email", e.target.value)}
           placeholder="correo@ejemplo.com"
+          className={errores.email ? style.inputError : ""}
           required
         />
+        {errores.email && <span className={style.notasError}>{errores.email}</span>}
       </div>
 
-      <div className={style.groupInput}>
-        <label htmlFor="reg-password">Contraseña</label>
-        <input
-          id="reg-password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Mínimo 6 caracteres"
-          required
-        />
-      </div>
+      
+      <PasswordInput
+        id="reg-password"
+        label="Contraseña"
+        value={valores.password}
+        onChange={(e) => handleChange("password", e.target.value)}
+        placeholder="Mínimo 6 caracteres"
+        error={errores.password}
+        required
+      />
+      
 
-      <div className={style.groupInput}>
-        <label htmlFor="reg-confirm-password">Confirmar Contraseña</label>
-        <input
-          id="reg-confirm-password"
-          type="password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          placeholder="Repite tu contraseña"
-          required
-        />
-      </div>
+      
+      <PasswordInput
+        id="reg-confirm-password"
+        label="Confirmar Contraseña"
+        value={valores.confirmPassword}
+        onChange={(e) => handleChange("confirmPassword", e.target.value)}
+        placeholder="Repite tu contraseña"
+        error={errores.confirmPassword}
+        required
+      />
+      
 
       <p className={style.pieEnlace}>
-      ¿Ya tienes una cuenta? 
-      <a href="#" onClick={(e) => { e.preventDefault(); irALogin(); }} className={style.enlaceAccion}>
-        Inicia sesión aquí
-      </a>
-    </p>
+        ¿Ya tienes una cuenta?{" "}
+        <a href="#" onClick={(e) => { e.preventDefault(); irALogin(); }} className={style.enlaceAccion}>
+          Inicia Sesión
+        </a>
+      </p>
     </FormBaseLayout>
-
   );
 };
 
