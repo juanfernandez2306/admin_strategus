@@ -44,9 +44,9 @@ const LoginLayout = () => {
     const token = localStorage.getItem("token") || "";
     const nombre = localStorage.getItem("nombre_usuario") || "";
 
-    setTimeout(() => {
-      loginGlobal(token, nombre);
-    }, 1200); 
+    
+    loginGlobal(token, nombre);
+    
 
     return mensajeExito;
   };
