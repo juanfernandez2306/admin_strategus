@@ -15,23 +15,25 @@ function App() {
 
   const vistaActual = useAuthUiStore((state) => state.vistaActual);
 
-  if (isLogged) {
-    return <NavigationLayout />;
-  }
-
   return (
     <AnimatePresence mode="wait">
       <motion.div
-        key={vistaActual}
+        key={isLogged ? "app-main" : vistaActual}
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -10 }}
         transition={{ duration: 0.2 }}
         className="auth-animation-wrapper" 
       >
-        {vistaActual === 'login' && <LoginLayout />}
-        {vistaActual === 'register' && <RegisterLayout />}
-        {vistaActual === 'ForgotPassword' && <ForgotPasswordLayout />}
+        {isLogged ? (
+          <NavigationLayout />
+        ) : (
+          <>
+            {vistaActual === 'login' && <LoginLayout />}
+            {vistaActual === 'register' && <RegisterLayout />}
+            {vistaActual === 'ForgotPassword' && <ForgotPasswordLayout />}
+          </>
+        )}
       </motion.div>
     </AnimatePresence>
   );

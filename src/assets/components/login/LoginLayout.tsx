@@ -41,12 +41,6 @@ const LoginLayout = () => {
 
     const mensajeExito = await autenticar(valores.email, valores.password);
     
-    const token = localStorage.getItem("token") || "";
-    const nombre = localStorage.getItem("nombre_usuario") || "";
-
-    
-    loginGlobal(token, nombre);
-    
 
     return mensajeExito;
   };
@@ -55,6 +49,16 @@ const LoginLayout = () => {
       <FormBaseLayout
           buttonText="Ingresar al Sistema"
           onExecute={handleExecuteLogin}
+          redirectOnSubmit={true}
+
+          onSuccess={ () => {
+            const token = localStorage.getItem("token") || "";
+            const nombre = localStorage.getItem("nombre_usuario") || "";
+            loginGlobal(token, nombre);
+          }
+          }
+          
+
         >
           <img 
             src={imgLogo} 
