@@ -143,13 +143,6 @@ button.submit:disabled {
   100% { transform: rotate(360deg); }
 }
 
-@media (min-width: 450px) {
-  form.form {
-    width: 420px;
-    padding: 2rem;
-  }
-}
-
 /* ==========================================================================
    ANIMACIONES DE FEEDBACK
    ========================================================================== */
