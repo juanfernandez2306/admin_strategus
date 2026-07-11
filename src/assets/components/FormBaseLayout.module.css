@@ -24,8 +24,17 @@ form.form {
   padding: 1.5rem;
   box-sizing: border-box;
 
-  max-height: 90dvh;  
+  max-height: 90dvh;
+  overflow: hidden;
   overflow-y: auto;
+  isolation: isolate;
+
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  mask-image: radial-gradient(white, black);
+
+
   padding-right: 1rem;
 }
 
