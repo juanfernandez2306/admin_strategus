@@ -1,29 +1,29 @@
-import { useState } from "react";
 import FormBaseLayout from "./FormBaseLayout";
 import style from "./FiltroFechasForm.module.css";
 
 import { useDescargarExcel } from "../hooks/useDescargarExcel";
+import { useFiltroFechas } from "../hooks/useFiltroFechas";
 
 export default function FiltroFechasForm() {
-  const [fechaInicio, setFechaInicio] = useState("");
-  const [fechaFin, setFechaFin] = useState("");
+  // Consumimos toda la lógica del nuevo custom hook
+  const {
+    fechaInicio,
+    fechaFin,
+    setFechaInicio,
+    setFechaFin,
+    reiniciarFechas,
+    limites
+  } = useFiltroFechas();
 
   const { descargarExcel } = useDescargarExcel();
 
-  const hoy = new Date().toISOString().split('T')[0];
-
-  // Esta función envuelve la lógica para cumplir con el contrato de FormBaseLayout
   const handleExecute = async (): Promise<string> => {
     if (!fechaInicio || !fechaFin) {
       throw new Error("Ambas fechas son obligatorias.");
     }
 
-    if (new Date(fechaFin) < new Date(fechaInicio)) {
-      throw new Error("La fecha de fin no puede ser menor a la fecha de inicio.");
-    }
-
+    // Delegamos la descarga segura al servidor mediante el hook original
     return await descargarExcel(fechaInicio, fechaFin);
-
   };
 
   return (
@@ -31,8 +31,8 @@ export default function FiltroFechasForm() {
       titulo="Generar Archivo Excel"
       buttonText="Descargar Excel"
       onExecute={handleExecute}
+      onSuccess={reiniciarFechas}
     >
-      {/* Contenedor interno para los campos de fecha */}
       <div className={style.camposContainer}>
         
         {/* Campo: Fecha de Inicio */}
@@ -45,8 +45,8 @@ export default function FiltroFechasForm() {
             id="fechaInicio"
             className={style.inputDate}
             value={fechaInicio}
-            min='2026-01-01'
-            max={hoy}
+            min={limites.inicio.min}
+            max={limites.inicio.max}
             onChange={(e) => setFechaInicio(e.target.value)}
             required
           />
@@ -62,12 +62,21 @@ export default function FiltroFechasForm() {
             id="fechaFin"
             className={style.inputDate}
             value={fechaFin}
-            min='2026-01-01'
-            max={hoy}
+            min={limites.fin.min}
+            max={limites.fin.max}
             onChange={(e) => setFechaFin(e.target.value)}
             required
           />
         </div>
+
+        <button
+          type="button"
+          className={style.btnResetear}
+          onClick={reiniciarFechas}
+          disabled={!fechaInicio && !fechaFin} // Se deshabilita si ambos inputs están vacíos
+        >
+          Limpiar Campos
+        </button>
 
       </div>
     </FormBaseLayout>
