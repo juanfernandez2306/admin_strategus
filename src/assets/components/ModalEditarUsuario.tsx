@@ -43,7 +43,6 @@ const normalizarStatusAStringId = (status: string | number): string => {
 export const ModalEditarUsuario = ({ usuario, isOpen, onClose, onUsuarioActualizado }: ModalEditarUsuarioProps) => {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
-  const [email, setEmail] = useState("");
   const [status, setStatus] = useState("1");
   const [roleId, setRoleId] = useState("3");
   const [fid, setFid] = useState<number | null>(null);
@@ -56,7 +55,6 @@ export const ModalEditarUsuario = ({ usuario, isOpen, onClose, onUsuarioActualiz
       setFid(usuario.id);
       setNombre(usuario.nombre);
       setApellido(usuario.apellido);
-      setEmail(usuario.email);
       setStatus(normalizarStatusAStringId(usuario.status));
       setRoleId(obtenerRoleIdPorNombre(usuario.rol)); // Transformamos "operador" -> "3"
     }
@@ -65,7 +63,7 @@ export const ModalEditarUsuario = ({ usuario, isOpen, onClose, onUsuarioActualiz
   if (!isOpen || !usuario) return null;
 
   const handleUpdate = async (): Promise<string> => {
-    if (!nombre.trim() || !apellido.trim() || !email.trim()) {
+    if (!nombre.trim() || !apellido.trim()) {
       throw new Error("Todos los campos obligatorios deben estar completos.");
     }
 
@@ -79,7 +77,6 @@ export const ModalEditarUsuario = ({ usuario, isOpen, onClose, onUsuarioActualiz
       body: JSON.stringify({
         nombre: nombre.trim(),
         apellido: apellido.trim(),
-        email: email.trim(),
         role_id: parseInt(roleId, 10),
         status: parseInt(status, 10)
       }),
@@ -136,19 +133,6 @@ export const ModalEditarUsuario = ({ usuario, isOpen, onClose, onUsuarioActualiz
               />
             </div>
 
-            <div className={style.controlForm}>
-              <label htmlFor="editEmail" className={style.label}>Correo Electrónico</label>
-              <input
-                type="email"
-                id="editEmail"
-                className={style.inputForm}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-
-            {/* Fila Dual: Rol y Estado */}
             <div className={style.filaDual}>
               
               {/* Selector: Rol */}
