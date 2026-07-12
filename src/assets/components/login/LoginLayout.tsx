@@ -52,10 +52,10 @@ const LoginLayout = () => {
           redirectOnSubmit={true}
 
           onSuccess={ () => {
-            const token = localStorage.getItem("token") || "";
-            const nombre = localStorage.getItem("nombre_usuario") || "";
-            loginGlobal(token, nombre);
-          }
+              const token = localStorage.getItem("token") || "";
+              const nombre = localStorage.getItem("nombre_usuario") || "";
+              loginGlobal(token, nombre);
+            }
           }
           
 
