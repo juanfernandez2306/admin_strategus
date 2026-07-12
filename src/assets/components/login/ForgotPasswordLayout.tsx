@@ -48,6 +48,7 @@ const ForgotPasswordLayout = () => {
     <FormBaseLayout
       buttonText="Enviar enlace"
       onExecute={handleExecuteRecovery}
+      onSuccess={() => {handleChange("email", "")}}
     >
       {/* LOGO */}
       <img src={imgLogo} alt="logo SIGEPAD" className={style.img} />
