@@ -26,12 +26,14 @@ export const useDescargarExcel = () => {
         }),
       });
 
-      if (!respuesta.ok) {
-        // Si el backend falla pero envía un JSON descriptivo, lo atrapamos
+      if (respuesta.status !== 200) {
         try {
           const errorDatos = await respuesta.json();
-          throw new Error(errorDatos.message || "Error al generar el reporte Excel.");
-        } catch {
+          // CORREGIDO: Mapear la ruta exacta de la respuesta (.error.description)
+          throw new Error(errorDatos.error?.description || "Error al generar el reporte Excel.");
+        } catch (e) {
+          // Si ya es una instancia de Error (producida por el throw de arriba), la mantenemos
+          if (e instanceof Error) throw e;
           throw new Error("Error en el servidor al procesar el archivo binario.");
         }
       }
