@@ -88,7 +88,7 @@ export const ModalEditarUsuario = ({ usuario, isOpen, onClose, onUsuarioActualiz
     }
 
     // Refrescar la lista principal de usuarios en tiempo real
-    onUsuarioActualizado();
+    
     
     return "El usuario ha sido actualizado correctamente.";
   };
@@ -105,7 +105,11 @@ export const ModalEditarUsuario = ({ usuario, isOpen, onClose, onUsuarioActualiz
           titulo="Actualizar Usuario"
           buttonText="Guardar Cambios"
           onExecute={handleUpdate}
-          onSuccess={onClose}
+          onSuccess={() => {
+            onClose();
+            onUsuarioActualizado();
+          }}
+          redirectOnSubmit={true}
         >
           <div className={style.camposContainer}>
             
