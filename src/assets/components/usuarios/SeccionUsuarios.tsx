@@ -8,6 +8,8 @@ import style from './SeccionUsuarios.module.css';
 
 import { CardError } from "./CardError";
 
+import { CardLoading } from "./CardLoading";
+
 interface Usuario {
   id: number;
   nombre: string;
@@ -28,9 +30,7 @@ export const SeccionUsuarios = () => {
     setModalAbierto(true);
   };
 
-  if (loading) {
-    return <p className={style.sinDatos}>Cargando lista de usuarios...</p>;
-  }
+  if (loading) return <CardLoading  mensaje="Cargando lista de usuarios..."/>;
 
   if (error) {
     <CardError 
