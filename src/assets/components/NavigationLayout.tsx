@@ -13,7 +13,7 @@ import ResumenLotesList from './ResumenLotesList';
 import { SeccionUsuarios } from './SeccionUsuarios';
 import { MapLibreGL } from '../maps/MapLibreGL';
 
-import imgLogo from '../img/icono_blanco_sigal.png';
+import imgLogo from '../img/logo_horizontal_sigepad_blanco.png';
 
 import { useAuthStore } from './login/hooks/useAuthStore'; 
 
