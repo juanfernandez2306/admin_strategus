@@ -9,13 +9,15 @@ import { CardSuccess } from "./usuarios/CardSuccess";
 
 import { CardLoading } from "./usuarios/CardLoading";
 
+import { CardError } from "./usuarios/CardError";
+
 
 const ResumenLotesList = () => {
 
   const { lotesData, loading, error } = useResumenLotes();
 
   if (loading) return <CardLoading mensaje="Cargando resumen de lotes..." />;
-  if (error) return <p className={styleLocal.errorText}>Error: {error}</p>;
+  if (error) return <CardError mensaje={error} />;
 
   return (
     <div className={styleLocal.contenedorLotes}>
