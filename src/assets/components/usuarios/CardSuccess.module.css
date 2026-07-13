@@ -1,0 +1,50 @@
+/* src/components/CardSuccess.module.css */
+
+.tarjetaSuccess {
+    width: 70%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center; /* Al estar sin título, centramos verticalmente el contenido */
+    gap: 14px;
+    padding: 14px 16px;
+    
+    /* Fondo translúcido basado en tu verde primario */
+    background-color: rgba(56, 102, 65, 0.08); 
+    border-left: 4px solid var(--firts-color);
+    border-radius: 8px;
+    
+    margin: 2rem 0;
+}
+
+.contenedorIcono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    background-color: var(--firts-color);
+    color: #ffffff;
+    border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(56, 102, 65, 0.25);
+}
+
+/* Control estricto del tamaño y simetría del Check */
+.svgIcono {
+    width: 11px;
+    height: 11px;
+    display: block;
+}
+
+.cuerpoTexto {
+    flex: 1;
+}
+
+.descripcion {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 600;
+    color: #2b3a2e; /* Verde ultra oscuro y elegante para máxima legibilidad */
+    margin: 0;
+    line-height: 1.4;
+}

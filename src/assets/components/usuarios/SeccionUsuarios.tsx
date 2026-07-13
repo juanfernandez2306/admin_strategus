@@ -2,9 +2,11 @@ import { useState } from "react";
 import ListaUsuarios from "./ListaUsuarios";
 import { ModalEditarUsuario } from "./ModalEditarUsuario";
 
-import { useUsuarios } from "../hooks/useUsuarios";
+import { useUsuarios } from "../../hooks/useUsuarios";
 
 import style from './SeccionUsuarios.module.css';
+
+import { CardError } from "./CardError";
 
 interface Usuario {
   id: number;
@@ -31,7 +33,10 @@ export const SeccionUsuarios = () => {
   }
 
   if (error) {
-    return <p className={style.sinDatos} style={{ color: "var(--error-color)" }}>Error: {error}</p>;
+    <CardError 
+      titulo="Error de sincronización"
+      mensaje={error} 
+    />
   }
 
   return (

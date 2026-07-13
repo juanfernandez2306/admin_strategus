@@ -5,12 +5,16 @@ import IconFumigadora from "../svg/IconFumigadora";
 
 import { useResumenLotes } from "../hooks/useResumenLotes";
 
+import { CardSuccess } from "./usuarios/CardSuccess";
+
+import { CardLoading } from "./usuarios/CardLoading";
+
 
 const ResumenLotesList = () => {
 
   const { lotesData, loading, error } = useResumenLotes();
 
-  if (loading) return <p className={styleLocal.sinDatos}>Cargando resumen de lotes...</p>;
+  if (loading) return <CardLoading mensaje="Cargando resumen de lotes..." />;
   if (error) return <p className={styleLocal.errorText}>Error: {error}</p>;
 
   return (
@@ -20,7 +24,9 @@ const ResumenLotesList = () => {
         <h3 className={styleLocal.tituloSeccion}>RESUMEN POR LOTES</h3>
       
       {lotesData.length === 0 ? (
-        <p className={styleLocal.sinDatos}>No hay registros el día de hoy.</p>
+        <CardSuccess 
+          mensaje="No hay registros el día de hoy."
+        />
       ) : (
         lotesData.map((item, index) => (
           <div key={index} className={styleLocal.tarjetaLote}>

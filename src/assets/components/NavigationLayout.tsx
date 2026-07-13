@@ -10,7 +10,7 @@ import { IconClipBoard } from '../svg/IconClipBoard';
 
 import FiltroFechasForm from './FiltroFechasForm';
 import ResumenLotesList from './ResumenLotesList';
-import { SeccionUsuarios } from './SeccionUsuarios';
+import { SeccionUsuarios } from './usuarios/SeccionUsuarios';
 import { MapLibreGL } from '../maps/MapLibreGL';
 
 import imgLogo from '../img/logo_horizontal_sigepad_blanco.png';

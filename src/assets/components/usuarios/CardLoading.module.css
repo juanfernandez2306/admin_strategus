@@ -1,0 +1,65 @@
+
+.tarjetaLoading {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 24px 16px;
+    
+    /* Fondo neutro y limpio acoplado a tu diseño */
+    background-color: rgba(0, 0, 0, 0.02);
+    border: 1px dashed var(--border-neutral-color);
+    border-radius: 8px;
+    margin: 1rem 0;
+}
+
+.svgLoader {
+    width: 100px;
+    height: auto;
+    display: block;
+}
+
+.esfera {
+    fill: var(--firts-color); /* Color de tu marca */
+    transform-origin: center;
+    animation: pulsoCiclico 1.2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+/* 🔄 Desfase de tiempos para crear el efecto de secuencia continua */
+.esfera1 {
+    animation-delay: 0s;
+}
+
+.esfera2 {
+    animation-delay: 0.2s;
+}
+
+.esfera3 {
+    animation-delay: 0.4s;
+}
+
+.texto {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-negro);
+    margin: 0;
+    letter-spacing: 0.3px;
+    text-align: center;
+    opacity: 0.75;
+}
+
+/* 📈 Animación matemática que altera el tamaño (escala) y la opacidad */
+@keyframes pulsoCiclico {
+    0%, 100% {
+        transform: scale(0.4);
+        opacity: 0.3;
+    }
+    50% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

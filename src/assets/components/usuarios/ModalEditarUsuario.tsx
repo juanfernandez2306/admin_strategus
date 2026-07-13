@@ -1,9 +1,9 @@
 // src/components/ModalEditarUsuario.tsx
 import { useState, useEffect } from "react";
-import FormBaseLayout from "./FormBaseLayout";
+import FormBaseLayout from "../FormBaseLayout";
 import style from "./ModalEditarUsuario.module.css";
-import { useAuthStore } from "./login/hooks/useAuthStore"; // 🌟 Importamos tu store para el Token
-import { URL_BACKEND } from "../maps/config/info"; // Ajusta la ruta de config si cambia
+import { useAuthStore } from "../login/hooks/useAuthStore"; 
+import { URL_BACKEND } from "../../maps/config/info";
 
 interface Usuario {
   id: number;

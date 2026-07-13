@@ -1,0 +1,64 @@
+
+.tarjetaError {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+    
+    /* Fondo translúcido idéntico al badge inactivo de tus usuarios */
+    background-color: rgba(211, 47, 47, 0.1); 
+    border-left: 4px solid var(--error-color); /* Acento sólido en el borde izquierdo */
+    border-radius: 8px; /* Coincide con tus esquinas de tags y elementos secundarios */
+    
+    margin: 1rem 0;
+}
+
+.contenedorIcono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    background-color: var(--error-color);
+    color: #ffffff;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: 900;
+    font-family: var(--font-header);
+    flex-shrink: 0;
+    margin-top: 2px; /* Alineación visual con la primera línea de texto */
+    box-shadow: 0 2px 5px rgba(211, 47, 47, 0.2);
+}
+
+.svgIcono {
+    width: 16px;
+    height: 16px;
+    display: block;
+}
+
+.cuerpoTexto {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+}
+
+.titulo {
+    font-family: var(--font-header);
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--error-color);
+    margin: 0;
+    letter-spacing: 0.3px;
+}
+
+.descripcion {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #4b5563; /* Gris oscuro elegante y legible */
+    margin: 0;
+    line-height: 1.4;
+}

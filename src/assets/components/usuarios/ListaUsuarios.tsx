@@ -1,6 +1,7 @@
 // src/components/ListaUsuarios.tsx
 
 import styleLocal from "./ListaUsuarios.module.css";
+import { CardError } from "./CardError";
 
 // Interface basada exactamente en tu consulta SQL
 interface Usuario {
@@ -32,7 +33,10 @@ const ListaUsuarios = ({ usuariosData, onEditarUsuario }: ListaUsuariosProps) =>
       <h3 className={styleLocal.tituloSeccion}>ADMINISTRACIÓN DE USUARIOS</h3>
       
       {usuariosData?.length === 0 ? (
-        <p className={styleLocal.sinDatos}>Acceso restringido.</p>
+        <CardError 
+          titulo="Notificación"
+          mensaje="Acceso restringido."
+        />
       ) : (
         usuariosData?.map((user) => (
           <div key={user.id} className={styleLocal.tarjetaUsuario}>
