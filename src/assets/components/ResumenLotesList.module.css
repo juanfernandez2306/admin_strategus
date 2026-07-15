@@ -12,17 +12,19 @@
    CONTENEDOR DE LOTES
    ========================================================================== */
 .contenedorLotes {
-    width: 90%;
+    width: 80%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;       /* 🚀 CAMBIADO: Evita que el scroll recorte el contenido superior */
     align-items: center;
     gap: 1rem;
     box-sizing: border-box;
-    max-height: calc(100dvh - 200px);
-    overflow-y: auto;
+    max-height: calc(100dvh - 200px);  /* Limita la altura de la caja de lotes */
+    overflow-y: auto;                  /* Habilita el scroll automático */
     padding-right: 4px;
+    padding-bottom: 2rem;              /* 🚀 ADICIONAL: Agrega espacio al final para que el gráfico no quede pegado al borde inferior al hacer scroll */
     -webkit-overflow-scrolling: touch;
+    padding: .5rem;
 }
 
 .tarjetaLote {
@@ -34,7 +36,7 @@
     flex-direction: column;
     gap: 0.8rem;
     box-shadow: var(--shadow-subtle);
-    width: 90%;
+    width: 80%;
 }
 
 .encabezadoLote {
@@ -111,5 +113,8 @@
 }
 
 .svg{
+    flex-shrink: 0;
+    display: block;  /* Asegura un comportamiento de bloque limpio */
+    margin: 0 auto;
     fill: var(--firts-color);
 }

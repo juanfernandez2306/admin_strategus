@@ -2,18 +2,13 @@
 import styleLocal from "./ResumenLotesList.module.css";
 
 import IconFumigadora from "../svg/IconFumigadora";
-
 import { useResumenLotes } from "../hooks/useResumenLotes";
-
 import { CardSuccess } from "./usuarios/CardSuccess";
-
 import { CardLoading } from "./usuarios/CardLoading";
-
 import { CardError } from "./usuarios/CardError";
-
+import { RegistroSemanalChart } from "./graficos/RegistroSemanalChart";
 
 const ResumenLotesList = () => {
-
   const { lotesData, loading, error } = useResumenLotes();
 
   if (loading) return <CardLoading mensaje="Cargando resumen de lotes..." />;
@@ -21,10 +16,12 @@ const ResumenLotesList = () => {
 
   return (
     <div className={styleLocal.contenedorLotes}>
-        <IconFumigadora width={200} height={100} className={styleLocal.svg} />
-
-        <h3 className={styleLocal.tituloSeccion}>RESUMEN POR LOTES</h3>
       
+      <IconFumigadora width={200} height={100} className={styleLocal.svg} />
+
+      <h3 className={styleLocal.tituloSeccion}>RESUMEN POR LOTES</h3>
+      
+      {/* 1. LISTADO DINÁMICO DE LOTES (Primero) */}
       {lotesData.length === 0 ? (
         <CardSuccess 
           mensaje="No hay registros el día de hoy."
@@ -63,6 +60,12 @@ const ResumenLotesList = () => {
           </div>
         ))
       )}
+
+      {/* Espaciador decorativo entre la lista de lotes y el gráfico */}
+      <div style={{ height: '0.5rem', width: '100%' }} />
+
+      {/* 2. GRÁFICO DE REGISTRO SEMANAL (Al final) */}
+      <RegistroSemanalChart />
     </div>
   );
 };
