@@ -56,7 +56,8 @@ const RegisterLayout = () => {
     <FormBaseLayout
       buttonText="Registrarse"
       onExecute={handleExecuteRegister}
-      onSuccess={() => setTimeout(() => irALogin(), 1500)}
+      redirectOnSubmit={true}
+      onSuccess={() => irALogin()}
     >
       <img src={imgLogo} alt="logo SIGEPAD" className={style.img} />
 
